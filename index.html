@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anvil - Evidence-First Coding Agent for GitHub Copilot CLI</title>
-    <meta name="description" content="Anvil is a chat mode for GitHub Copilot CLI that verifies code before presenting it. Multi-model adversarial review, SQL-tracked verification, and automatic rollback.">
+    <title>Fundu - Evidence-First Coding Agent for GitHub Copilot CLI</title>
+    <meta name="description" content="Fundu is a chat mode for GitHub Copilot CLI that verifies code before presenting it. Multi-model adversarial review, SQL-tracked verification, and automatic rollback.">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔨</text></svg>">
 </head>
 <body>
     <header class="site-header">
         <div class="container header-container">
-            <a href="#" class="logo">Anvil<span class="logo-gradient">.</span></a>
+            <a href="#" class="logo">Fundu<span class="logo-gradient">.</span></a>
             <nav class="main-nav">
                 <a href="#install" class="nav-cta">Install</a>
             </nav>
@@ -25,13 +25,13 @@
             <p class="hero-kicker">A chat mode for GitHub Copilot CLI</p>
             <h1>Your agent should prove<br>its work. <span class="gradient-text">This one does.</span></h1>
             <p class="hero-sub">
-                Anvil verifies every change before you see it - builds, tests, lints, 
+                Fundu verifies every change before you see it - builds, tests, lints, 
                 then has other AI models try to break it. You get proof, not promises.
             </p>
             <div class="install-block">
                 <div class="terminal-box" onclick="copyInstall(this)" title="Click to copy">
                     <span class="prompt">$</span>
-                    <code>copilot plugin install burkeholland/anvil</code>
+                    <code>copilot plugin install gauravsingh/fundu</code>
                     <button class="copy-btn" aria-label="Copy to clipboard">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
@@ -39,8 +39,7 @@
                         </svg>
                     </button>
                 </div>
-                <p class="context-note">Includes the <a href="https://github.com/upstash/context7">Context7</a> MCP server for up-to-date library docs.</p>
-                <p class="context-note"><strong>Recommended:</strong> Add the <a href="https://skills.sh/anthropics/skills/frontend-design">frontend-design</a> skill for beautiful UI generation:<br><code>npx skills add anthropics/skills/frontend-design</code></p>
+                <p class="context-note">Includes <strong>14 bundled skills</strong> from <a href="https://skills.sh/">skills.sh</a> — browser automation, systematic debugging, React, Next.js, UI/UX design, document generation, and more.</p>
             </div>
         </section>
 
@@ -53,9 +52,9 @@
             </div>
         </section>
 
-        <!-- ── What Anvil Does ───────────────────────── -->
+        <!-- ── What Fundu Does ───────────────────────── -->
         <section class="section" id="features">
-            <span class="section-label">What Anvil Does</span>
+            <span class="section-label">What Fundu Does</span>
 
             <div class="feature-list">
                 <div class="feature-row">
@@ -68,19 +67,19 @@
                 </div>
                 <div class="feature-row">
                     <h3 class="feature-name">Baseline Snapshots</h3>
-                    <p class="feature-desc">Before touching anything, Anvil records your project's state - build, diagnostics, tests. After changes, it compares. Regressions are caught before you see the code, not after you ship it.</p>
+                    <p class="feature-desc">Before touching anything, Fundu records your project's state - build, diagnostics, tests. After changes, it compares. Regressions are caught before you see the code, not after you ship it.</p>
                 </div>
                 <div class="feature-row">
                     <h3 class="feature-name">Pushback</h3>
-                    <p class="feature-desc">Anvil is a senior engineer, not an order taker. Bad idea? Tech debt? Dangerous edge case? It tells you before writing a single line. You can override it. But you'll know.</p>
+                    <p class="feature-desc">Fundu is a senior engineer, not an order taker. Bad idea? Tech debt? Dangerous edge case? It tells you before writing a single line. You can override it. But you'll know.</p>
                 </div>
                 <div class="feature-row">
                     <h3 class="feature-name">Session Memory</h3>
-                    <p class="feature-desc">Broke a file last session? Anvil remembers. Learned your build command? Won't ask again. Context that actually persists across conversations.</p>
+                    <p class="feature-desc">Broke a file last session? Fundu remembers. Learned your build command? Won't ask again. Context that actually persists across conversations.</p>
                 </div>
                 <div class="feature-row">
                     <h3 class="feature-name">Git Autopilot</h3>
-                    <p class="feature-desc">Before writing code, Anvil checks your git state - stashes uncommitted work, creates a branch off <code>main</code> so you're never editing trunk directly. After verification passes, it commits with a clear message and gives you a one-line rollback command.</p>
+                    <p class="feature-desc">Before writing code, Fundu checks your git state - stashes uncommitted work, creates a branch off <code>main</code> so you're never editing trunk directly. After verification passes, it commits with a clear message and gives you a one-line rollback command.</p>
                 </div>
             </div>
         </section>
@@ -93,7 +92,7 @@
 
             <div class="evidence-demo">
                 <div class="evidence-header-row">
-                    <span class="evidence-title">🔨 Anvil Evidence Bundle</span>
+                    <span class="evidence-title">🔨 Fundu Evidence Bundle</span>
                     <span class="evidence-meta">task: <code>fix-auth-redirect</code> · size: M · risk: 🟡</span>
                 </div>
                 <table class="evidence-table">
@@ -158,7 +157,7 @@
             <div class="install-block">
                 <div class="terminal-box" onclick="copyInstall(this)" title="Click to copy">
                     <span class="prompt">$</span>
-                    <code>copilot plugin install burkeholland/anvil</code>
+                    <code>copilot plugin install gauravsingh/fundu</code>
                     <button class="copy-btn" aria-label="Copy to clipboard">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
@@ -166,8 +165,7 @@
                         </svg>
                     </button>
                 </div>
-                <p class="install-hint">Then run <code>copilot</code> and select the Anvil agent.</p>
-                <p class="install-hint"><strong>Recommended:</strong> <code>npx skills add anthropics/skills/frontend-design</code></p>
+                <p class="install-hint">Then run <code>copilot</code> and select the Fundu agent.</p>
             </div>
         </section>
 
@@ -175,7 +173,7 @@
 
     <footer>
         <div class="container">
-            <p>Built by <a href="https://postrboard.com">Burke Holland</a> · <a href="https://github.com/burkeholland/anvil">GitHub</a></p>
+            <p>Built by <a href="https://postrboard.com">Burke Holland</a> · <a href="https://github.com/gauravsingh/fundu">GitHub</a></p>
         </div>
     </footer>
 

@@ -1,15 +1,17 @@
 {
-  "name": "anvil",
-  "description": "Evidence-first coding agent for GitHub Copilot CLI. Verifies every change with adversarial multi-model review, SQL-tracked verification, and automatic rollback.",
-  "version": "1.0.0",
+  "name": "fundu",
+  "description": "Evidence-first coding agent for GitHub Copilot CLI. Verifies every change with adversarial multi-model review, SQL-tracked verification, and automatic rollback. Bundled with 14 curated skills from skills.sh.",
+  "version": "2.0.0",
   "author": {
     "name": "Burke Holland",
     "url": "https://postrboard.com"
   },
-  "homepage": "https://github.com/burkeholland/anvil",
-  "repository": "https://github.com/burkeholland/anvil",
+  "homepage": "https://github.com/gauravsingh/fundu",
+  "repository": "https://github.com/gauravsingh/fundu",
   "license": "MIT",
-  "keywords": ["verification", "code-review", "adversarial", "evidence"],
+  "keywords": ["verification", "code-review", "adversarial", "evidence", "skills"],
+  "category": "development",
+  "tags": ["coding-agent", "verification", "adversarial-review", "skills"],
   "agents": "agents/",
-  "mcpServers": ".mcp.json"
+  "skills": "skills/"
 }
