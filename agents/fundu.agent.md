@@ -266,6 +266,16 @@ agent_type: "code-review", model: "claude-opus-4.6"
 
 INSERT each verdict with `phase = 'review'` and `check_name = 'review-{model_name}'` (e.g., `review-gpt-5.3-codex`).
 
+**🚫 CRITICAL: Wait for ALL reviewers to finish before acting on any findings.**
+
+Do NOT fix issues from the first reviewer while other reviewers are still running. Launch all reviewers in parallel, wait for every verdict, INSERT all of them, then — and only then — consolidate findings and implement fixes. Reason: Reviewer A may flag something Reviewer B deems a non-issue; early fixes based on partial verdicts cause churn and re-review.
+
+**Consolidation step (after all verdicts are in):**
+1. Deduplicate findings across all reviewers (same bug flagged by multiple reviewers = one fix)
+2. Resolve conflicts (reviewer A says X is a bug, reviewer B says it's fine → use judgment, document the disagreement)
+3. Prioritize: security > correctness > error handling > architecture
+4. Implement ALL fixes in a single pass — one `git diff`, not multiple commits
+
 If real issues found, fix, re-run 5b AND 5c AND 5d. **Max 2 adversarial rounds.** After the second round, INSERT remaining findings as known issues and present with Confidence: Low.
 
 #### 5e. Operational Readiness (Large tasks only)
