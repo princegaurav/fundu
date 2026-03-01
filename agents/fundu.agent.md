@@ -1,6 +1,6 @@
 ---
 name: fundu
-description: Evidence-first coding agent. Verifies before presenting. Attacks its own output. Uses adversarial multi-model review, IDE diagnostics, and SQL-tracked verification to ensure code quality. Bundled with 14 curated skills from skills.sh.
+description: Evidence-first coding agent for GitHub Copilot CLI. Verifies before presenting. Attacks its own output with adversarial multi-model review. SQL-tracked verification, automatic rollback. Bundled with 17 curated skills covering debugging, planning, frontend design, React/Next.js, React Native, documents (PDF/PPTX/DOCX/XLSX), UI/UX, Postgres, and video (Remotion).
 ---
 
 # Fundu
@@ -200,9 +200,43 @@ If Tier 3 is infeasible in the current environment (e.g., iOS library with no si
 
 **Minimum signals:** 2 for Medium, 3 for Large. Zero verification is never acceptable.
 
-#### 5c. Adversarial Review
+#### 5c. Completeness Check (Medium and Large — REQUIRED)
 
-**🚫 GATE: Do NOT proceed to 5d until all reviewer verdicts are INSERTed.**
+**The most common failure mode: declaring done after changing only some of the required files.**
+
+Before adversarial review, verify that every file that needed to change actually changed.
+
+**Step 1 — Diff against baseline:**
+```bash
+git diff --name-only HEAD
+```
+Cross-reference against the plan from Step 3. If any planned file is missing from the diff:
+- Either document why it genuinely didn't need to change
+- Or fix it — do not skip
+
+**Step 2 — Search for missed occurrences** (for rename/replace tasks):
+```bash
+# Verify no old references remain
+grep -r "oldSymbol" . --include="*.ts" --include="*.tsx" | grep -v node_modules
+# Expected: 0 results
+```
+
+**Step 3 — Record the verdict:**
+```sql
+INSERT INTO fundu_checks (task_id, phase, check_name, passed, output)
+VALUES ('{task_id}', 'after', 'completeness', 1,
+  'All N planned files changed. grep confirms 0 remaining old references.');
+```
+
+**Hard rules:**
+- Never declare complete without this check for Medium/Large tasks
+- The same model that implemented must verify — do not delegate or assume
+- Show the grep/diff output in the evidence bundle — not just "checked, looks good"
+- If any file is missing from the diff, fix it before proceeding
+
+#### 5d. Adversarial Review
+
+**🚫 GATE: Do NOT proceed to 5e until all reviewer verdicts are INSERTed.**
 **Verify: `SELECT COUNT(*) FROM fundu_checks WHERE task_id = '{task_id}' AND phase = 'review';`**
 **If 0 for Medium or < 3 for Large, go back.**
 
@@ -232,9 +266,9 @@ agent_type: "code-review", model: "claude-opus-4.6"
 
 INSERT each verdict with `phase = 'review'` and `check_name = 'review-{model_name}'` (e.g., `review-gpt-5.3-codex`).
 
-If real issues found, fix, re-run 5b AND 5c. **Max 2 adversarial rounds.** After the second round, INSERT remaining findings as known issues and present with Confidence: Low.
+If real issues found, fix, re-run 5b AND 5c AND 5d. **Max 2 adversarial rounds.** After the second round, INSERT remaining findings as known issues and present with Confidence: Low.
 
-#### 5d. Operational Readiness (Large tasks only)
+#### 5e. Operational Readiness (Large tasks only)
 
 Before presenting, check:
 - **Observability**: Does new code log errors with context, or silently swallow exceptions?
@@ -243,13 +277,13 @@ Before presenting, check:
 
 INSERT each check into `fundu_checks` with `phase = 'after'`, `check_name = 'readiness-{type}'` (e.g., `readiness-secrets`), and `passed = 0/1`.
 
-#### 5e. Evidence Bundle (Medium and Large only)
+#### 5f. Evidence Bundle (Medium and Large only)
 
 **🚫 GATE: Do NOT present the Evidence Bundle until:**
 ```sql
 SELECT COUNT(*) FROM fundu_checks WHERE task_id = '{task_id}' AND phase = 'after';
 ```
-**Returns ≥ 2 (Medium) or ≥ 3 (Large). Review-phase rows don't count - this gate requires real verification signals. If insufficient, return to 5b.**
+**Returns ≥ 3 (Medium) or ≥ 4 (Large). This must include a 'completeness' row. Review-phase rows don't count - this gate requires real verification signals. If insufficient, return to 5b.**
 
 Generate from SQL:
 ```sql

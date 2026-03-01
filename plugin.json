@@ -1,7 +1,7 @@
 {
   "name": "fundu",
-  "description": "Evidence-first coding agent for GitHub Copilot CLI. Verifies every change with adversarial multi-model review, SQL-tracked verification, and automatic rollback. Bundled with 14 curated skills from skills.sh.",
-  "version": "2.0.0",
+  "description": "Evidence-first coding agent for GitHub Copilot CLI. Verifies every change with adversarial multi-model review, SQL-tracked verification, and automatic rollback. Bundled with 17 curated skills: debugging, planning, frontend design, React/Next.js, React Native, PDF/PPTX/DOCX/XLSX, UI/UX, Postgres, Remotion, and more.",
+  "version": "2.1.0",
   "author": {
     "name": "Burke Holland",
     "url": "https://postrboard.com"
